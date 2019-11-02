@@ -1,0 +1,22 @@
+---
+- name: Installing wget packages using apt
+  become: true
+  apt:
+    pkg: "wget"
+    update_cache: yes
+    state: latest
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Installing wget packages using yum
+  become: true
+  yum:
+    pkg: "wget"
+    update_cache: yes
+    state: latest
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+
+- name: Installing wget packages using pacman
+  pacman:
+    name: "wget"
+    state: present
+  when: ansible_distribution == 'MacOSX'
